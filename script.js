@@ -3,8 +3,8 @@
 // Constructors
 const Person = function (firstname, birthyear) {
   // Instance Properties
-  this.firstname = firstname;
-  this.birthyear = birthyear;
+  this.fn = firstname;
+  this.birth = birthyear;
   // Don't do this
   // this.calcage = function () {
   //   console.log(2037 - this.birthyear);
@@ -22,7 +22,7 @@ console.log(Jay instanceof Person);
 
 // Prototypes
 Person.prototype.calcage = function () {
-  console.log(2037 - this.birthyear);
+  console.log(2037 - this.birth);
 };
 
 Azeez.calcage();
@@ -42,3 +42,54 @@ console.log(Azeez.species);
 console.log(Person.hasOwnProperty('species'));
 console.log(Azeez.hasOwnProperty('species'));
 console.log(Azeez.hasOwnProperty('firstname'));
+
+// prototype Chaining
+console.log(Azeez.__proto__);
+console.log(Azeez.__proto__.__proto__);
+console.log(Azeez.__proto__.__proto__.__proto__);
+
+console.dir(Person.prototype.constructor);
+
+// Protoptype of Array
+
+const arr = [3, 5, 3, 4, 1, 5, 6, 8, 8, 6];
+
+console.log(arr.__proto__);
+console.log(arr.__proto__ === Array.prototype);
+console.log(arr.__proto__.__proto__);
+
+Array.prototype.unique = function () {
+  const sets = new Set(this);
+  return [...sets];
+};
+
+console.log(arr.unique());
+
+// Coding Challenge //
+const Car = function (model, speed) {
+  this.Model = model;
+  this.Speed = speed;
+};
+
+const Bmw = new Car('BMW', 120);
+const Mercedes = new Car('Mercedes', 95);
+Car.prototype.calcspeed = function () {
+  console.log(`${this.Model} is going at ${this.Speed}km/h`);
+};
+
+Bmw.calcspeed();
+Mercedes.calcspeed();
+
+Car.prototype.accelerate = function () {
+  this.Speed += 10;
+  console.log(`${this.Model} is going at ${this.Speed}km/h`);
+};
+Car.prototype.brake = function () {
+  this.Speed -= 5;
+  console.log(`${this.Model} is going at ${this.Speed}km/h`);
+};
+Bmw.accelerate();
+Bmw.accelerate();
+Bmw.accelerate();
+Bmw.brake();
+Bmw.accelerate();
